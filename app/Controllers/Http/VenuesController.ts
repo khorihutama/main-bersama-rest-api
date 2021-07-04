@@ -8,16 +8,17 @@ export default class VenuesController {
         response.ok({ message: "success", data: venues })
     }
 
-    public async store({ request, response }: HttpContextContract) {
+    public async store({ request, response, auth }: HttpContextContract) {
         try {
-            await request.validate(CreateVenueValidator)
+            const data = await request.validate(CreateVenueValidator)
             const venue = new Venue()
+            venue.name = data.name
+            venue.address = data.address
+            venue.phone = data.phone
 
-            await venue.fill({
-                name: request.input('name'),
-                address: request.input('address'),
-                phone: request.input('phone'),
-            }).save()
+            const authUser = auth.user
+            
+            await authUser?.related('venues').save(venue)
 
             response.created({ message: "created", data: venue })
         } catch (error) {

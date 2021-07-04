@@ -6,8 +6,11 @@ import {
   BaseModel,
   manyToMany,
   ManyToMany,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Booking from 'App/Models/Booking'
+import Venue from 'App/Models/Venue'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -46,4 +49,7 @@ export default class User extends BaseModel {
 
   @manyToMany(() => Booking)
   public bookings: ManyToMany<typeof Booking>
+
+  @hasMany(() => Venue)
+  public venues: HasMany<typeof Venue>
 }
