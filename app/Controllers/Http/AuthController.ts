@@ -50,7 +50,7 @@ export default class AuthController {
         }
     }
 
-    public async otpVerification({ request, response }: HttpContextContract) {
+    public async otpConfirmation({ request, response }: HttpContextContract) {
         let otp_code = request.input('otp_code')
         let email = request.input('email')
 
@@ -58,7 +58,7 @@ export default class AuthController {
         let otpCheck = await Database.query().from('otp_codes').where('otp_code', otp_code).first()
 
         if (user?.id == otpCheck.user_id) {
-            user.isVerified = true
+            user!.isVerified = true
             await user?.save()
             return response.ok({ message: "berhasil konfirmasi otp" })
         } else {
