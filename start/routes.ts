@@ -36,5 +36,7 @@ Route.group(() => {
 
     Route.post('/register', 'AuthController.register').as('auth.register')
     Route.post('/login', 'AuthController.login').as('auth.login')
+
+    Route.post('/verifikasi-otp', 'AuthController.otpVerification').as('auth.otpVerify')
   }).prefix('/v1')
 }).prefix('/api')
