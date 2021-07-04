@@ -26,7 +26,7 @@ export default class Venue extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => Field)
-  public field: HasMany<typeof Field>
+  public fields: HasMany<typeof Field>
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>

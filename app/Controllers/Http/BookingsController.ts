@@ -28,12 +28,16 @@ export default class BookingsController {
                 playDateEnd: request.input('play_date_end'),
                 userId
             }
-            const field = await Field.find(id)
+            const field = await Field.findOrFail(id)
             await field?.related('bookings').create(payload)
 
             response.created({ message: "booking success" })
         } catch (error) {
-            response.badRequest({ error: error })
+            if (error.messages !== null) {
+                response.badRequest({ error: error.message })
+            } else {
+                response.badRequest({ error: error.messages })
+            }
         }
     }
 

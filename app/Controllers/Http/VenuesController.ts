@@ -1,10 +1,13 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateVenueValidator from 'App/Validators/CreateVenueValidator'
 import Venue from 'App/Models/Venue'
+import Field from 'App/Models/Field'
 
 export default class VenuesController {
     public async index({ response }: HttpContextContract) {
-        let venues = await Venue.all()
+        let venues = await Venue.query().preload('fields', (query) => {
+            query.select('id', 'name', 'type')
+        }).select('id', 'address', 'name', 'phone')
         response.ok({ message: "success", data: venues })
     }
 
@@ -29,8 +32,12 @@ export default class VenuesController {
     public async show({ params, response }: HttpContextContract) {
         let id = params.id
 
-        let venue = await Venue.query().preload('field')?.where('id', id).first()
-        response.ok({ message: "success", data: venue })
+        let venue = await Field.query().preload('bookings', (query) => {
+            query.select('id', 'user_id', 'play_date_start', 'play_date_end', 'field_id')
+        })
+        .join('venues', 'venues.id', 'fields.venue_id').where('fields.id', id).select('fields.*', 'venues.*').first()
+
+        response.ok({ message: "success", status: true, data: venue })
     }
 
     public async update({ params, request, response }: HttpContextContract) {
