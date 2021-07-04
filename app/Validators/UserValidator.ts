@@ -37,7 +37,8 @@ export default class UserValidator {
 		]),
 		password: schema.string({}, [
 			rules.minLength(6)
-		])
+		]),
+		role: schema.string.optional()
 	})
 
 	/**
