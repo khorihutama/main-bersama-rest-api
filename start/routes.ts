@@ -27,12 +27,12 @@ Route.get('/', async () => {
 
 Route.group(() => {
   Route.group(() => {
-    Route.resource('venues', 'VenuesController').apiOnly().middleware({ '*': ['auth'] })
-    Route.resource('venues.fields', 'FieldsController').apiOnly().middleware({ '*': ['auth'] })
-    Route.post('fields/:id/bookings', 'BookingsController.store').as('bookings.store').middleware(['auth'])
-    Route.get('fields/:id', 'BookingsController.index').as('booking.index').middleware(['auth'])
-    Route.get('bookings/:id', 'BookingsController.show').as('booking.show').middleware(['auth'])
-    Route.post('bookings/:id', 'BookingsController.join').as('booking.join').middleware(['auth'])
+    Route.resource('venues', 'VenuesController').apiOnly().middleware({ '*': ['auth', 'verify'] })
+    Route.resource('venues.fields', 'FieldsController').apiOnly().middleware({ '*': ['auth', 'verify'] })
+    Route.post('fields/:id/bookings', 'BookingsController.store').as('bookings.store').middleware(['auth', 'verify'])
+    Route.get('fields/:id', 'BookingsController.index').as('booking.index').middleware(['auth', 'verify'])
+    Route.get('bookings/:id', 'BookingsController.show').as('booking.show').middleware(['auth', 'verify'])
+    Route.post('bookings/:id', 'BookingsController.join').as('booking.join').middleware(['auth', 'verify'])
 
     Route.post('/register', 'AuthController.register').as('auth.register')
     Route.post('/login', 'AuthController.login').as('auth.login')
