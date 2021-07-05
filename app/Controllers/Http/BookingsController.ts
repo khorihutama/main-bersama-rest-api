@@ -4,16 +4,12 @@ import Field from 'App/Models/Field'
 import CreateBookingValidator from 'App/Validators/CreateBookingValidator'
 
 export default class BookingsController {
-    public async index({ params, response, auth }: HttpContextContract) {
-        let id = params.id
-        const booking = await Field.query()
-            .preload('venue', (query) => {
-                query.select('name', 'address', 'phone')
+    public async index({ response }: HttpContextContract) {
+        const booking = await Booking.query()
+            .preload('fields', (query) => {
+                query.select('id', 'name', 'type', 'venue_id')
             })
-            .preload('bookings', (query) => {
-                query.select('id', 'field_id', 'play_date_start', 'play_date_end', 'user_id')
-            })
-            .where('id', id).select('*').first()
+            .select('id', 'field_id', 'play_date_start', 'play_date_end', 'user_id')
         return response.ok({ message: "get data booking", data: booking })
     }
 
@@ -41,7 +37,7 @@ export default class BookingsController {
         }
     }
 
-    public async show({ params, request, response, auth }: HttpContextContract) {
+    public async show({ params, response }: HttpContextContract) {
         let id = params.id
 
         let booking = await Booking.query()
@@ -56,12 +52,37 @@ export default class BookingsController {
         response.ok({ message: "success", data: booking })
     }
 
-    public async join({ params, request, response, auth }: HttpContextContract) {
+    public async schedules({ response, auth }: HttpContextContract) {
+        let userId = auth.user?.id
+
+        if (userId) {
+            const booking = await Booking.query()
+                .preload('fields', (query) => {
+                    query.select('id', 'name', 'type', 'venue_id')
+                })
+                .where('user_id', userId)
+                .select('id', 'field_id', 'play_date_start', 'play_date_end', 'user_id')
+            return response.ok({ message: "get data booking", data: booking })
+        }
+        return response.badRequest({ message: "error" })
+
+    }
+
+    public async join({ params, response, auth }: HttpContextContract) {
         let id = params.id
 
         const authUser = auth.user
-        let booking = await authUser?.related('bookings').sync([authUser?.id])
+        await authUser?.related('bookings').sync([id])
 
-        response.ok({ message: "join success" })
+        response.ok({ message: "successfully join", status: true })
+    }
+
+    public async unjoin({ params, response, auth }: HttpContextContract) {
+        let id = params.id
+
+        const authUser = auth.user
+        await authUser?.related('bookings').detach([id])
+
+        response.ok({ message: "successfully unjoin", status: true })
     }
 }
