@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Booking from 'App/Models/Booking'
 import Field from 'App/Models/Field'
+import User from 'App/Models/User'
 import CreateBookingValidator from 'App/Validators/CreateBookingValidator'
 
 export default class BookingsController {
@@ -56,13 +57,11 @@ export default class BookingsController {
         let userId = auth.user?.id
 
         if (userId) {
-            const booking = await Booking.query()
-                .preload('fields', (query) => {
-                    query.select('id', 'name', 'type', 'venue_id')
-                })
-                .where('user_id', userId)
-                .select('id', 'field_id', 'play_date_start', 'play_date_end', 'user_id')
-            return response.ok({ message: "get data booking", data: booking })
+            const schedule = await User.query().preload('bookings', query => {
+                query.select('play_date_start', 'play_date_end', 'field_id')
+                query.as('schedule')
+            }).where('id', userId).select('id', 'name', 'email')
+            return response.ok({ message: "get data booking", data: schedule })
         }
         return response.badRequest({ message: "error" })
 
