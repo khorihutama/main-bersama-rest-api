@@ -5,10 +5,6 @@ export default {
 	uiUrl: 'docs', // url path to swaggerUI
 	specEnabled: true, //disable or enable swagger.json route
 	specUrl: '/swagger.json',
-	servers: {
-		url: 'https://main-bersama-rest-api.herokuapp.com/'
-	},
-
 	middleware: [], // middlewares array, for protect your swagger docs and spec endpoints
 
 	options: {

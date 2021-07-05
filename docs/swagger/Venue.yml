@@ -1,0 +1,105 @@
+paths:
+  /api/v1/venues:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Venues
+      summary: Show Venue List
+      responses:
+        200:
+          description: Success list venues
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Venues
+      summary: Create new venue
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#definitions/Venue"
+          application/json:
+            schema:
+              $ref: "#definitions/Venue"
+      responses:
+        201:
+          description: Success create venue
+        401:
+          description: Unauthorized
+        422:
+          description: Bad Request
+        500:
+          description: Internal server error
+  /api/v1/venues/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Venues
+      summary: Show Venue List by Id
+      parameters:
+        - name: id
+          in: path
+          description: venue id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success list venues by id
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Venues
+      summary: Update venue information
+      parameters:
+        - name: id
+          in: path
+          description: venue id
+          required: true
+          type: integer
+      requestBody:
+        required: false
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                phone:
+                  type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        200:
+          description: Success update venue
+        401:
+          description: Unauthorized
+        404:
+          description: Venue Not Found
+        422:
+          description: Bad Request
+        500:
+          description: Internal server error
