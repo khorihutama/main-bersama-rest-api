@@ -2,6 +2,28 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
 import Field from 'App/Models/Field'
+
+/**
+ * @swagger
+ * definitions:
+ *  User:
+ *    type: object
+ *    properties:
+ *      id: 
+ *        type: integer
+ *      name: 
+ *        type: string
+ *      email: 
+ *        type: string
+ *      password: 
+ *        type: string
+ *      role: 
+ *        type: string
+ *    required:
+ *      - name
+ *      - email
+ *      - password
+ */
 export default class Booking extends BaseModel {
   @column({ isPrimary: true })
   public id: number

@@ -3,6 +3,27 @@ import { BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany } from '@ioc:
 import Field from 'App/Models/Field'
 import User from 'App/Models/User'
 
+/**
+ * @swagger
+ * definitions:
+ *  Venue:
+ *    type: object
+ *    properties:
+ *      id: 
+ *        type: integer
+ *      name: 
+ *        type: string
+ *      address: 
+ *        type: string
+ *      phone: 
+ *        type: string
+ *      userId: 
+ *        type: string
+ *    required:
+ *      - name
+ *      - address
+ *      - phone
+ */
 export default class Venue extends BaseModel {
   @column({ isPrimary: true })
   public id: number
