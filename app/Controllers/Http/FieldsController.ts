@@ -13,7 +13,7 @@ export default class FieldsController {
       let venue_id = params.venue_id
       let data = await request.validate(CreateFieldValidator)
       const venue = await Venue.find(venue_id)
-      await venue?.related('field').create(data)
+      await venue?.related('fields').create(data)
       return response.created({ message: "new field created", data })
     } catch (error) {
       response.badRequest({ error: error.messages })
