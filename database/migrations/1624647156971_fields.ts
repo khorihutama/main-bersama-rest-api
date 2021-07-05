@@ -7,7 +7,7 @@ export default class Fields extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('name').notNullable()
-      table.enu('type', ['futsal', 'mini soccer', 'basketball'])
+      table.enu('type', ['soccer', 'minisoccer', 'futsal', 'basketball', 'volleyball'])
       table.integer('venue_id').unsigned().references('venues.id').onDelete('CASCADE')
       table.timestamps(true)
       /**
