@@ -1,18 +1,18 @@
 definitions:
-  User:
+  Venue:
     type: object
     properties:
       id:
         type: integer
       name:
         type: string
-      email:
+      address:
         type: string
-      password:
+      phone:
         type: string
-      role:
+      userId:
         type: string
     required:
       - name
-      - email
-      - password
+      - address
+      - phone
