@@ -16,8 +16,6 @@ paths:
       responses:
         201:
           description: Register success
-          example:
-            message: registered!, please verify your otp code
         422:
           description: request invalid
   /api/v1/login:

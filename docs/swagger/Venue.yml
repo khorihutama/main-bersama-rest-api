@@ -45,7 +45,7 @@ paths:
         - Venues
       summary: Show Venue List by Id
       parameters:
-        - name: id
+          name: id
           in: path
           description: venue id
           required: true
@@ -64,7 +64,7 @@ paths:
         - Venues
       summary: Update venue information
       parameters:
-        - name: id
+          name: id
           in: path
           description: venue id
           required: true

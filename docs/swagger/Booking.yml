@@ -21,11 +21,11 @@ paths:
         - Venues
       summary: Show Venue List by Id
       parameters:
-        - name: id
-          in: path
-          description: venue id
-          required: true
-          type: integer
+        name: id
+        in: path
+        description: venue id
+        required: true
+        type: integer
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -67,11 +67,11 @@ paths:
         - Bookings
       summary: Show List By Id Booking
       parameters:
-        - name: id
-          in: path
-          description: venue id
-          required: true
-          type: integer
+        name: id
+        in: path
+        description: venue id
+        required: true
+        type: integer
       responses:
         200:
           description: Success
@@ -101,11 +101,11 @@ paths:
         - Bookings
       summary: Join Booking
       parameters:
-        - name: id
-          in: path
-          description: venue id
-          required: true
-          type: integer
+        name: id
+        in: path
+        description: venue id
+        required: true
+        type: integer
       responses:
         200:
           description: Success
@@ -121,11 +121,11 @@ paths:
         - Bookings
       summary: Unjoin Booking
       parameters:
-        - name: id
-          in: path
-          description: venue id
-          required: true
-          type: integer
+        name: id
+        in: path
+        description: venue id
+        required: true
+        type: integer
       responses:
         200:
           description: Success
