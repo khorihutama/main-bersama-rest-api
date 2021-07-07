@@ -33,6 +33,8 @@ paths:
           description: Success create venue
         401:
           description: Unauthorized
+        403:
+          description: Forbidden
         422:
           description: Bad Request
         500:
@@ -45,11 +47,11 @@ paths:
         - Venues
       summary: Show Venue List by Id
       parameters:
-          name: id
-          in: path
-          description: venue id
-          required: true
-          type: integer
+          - name: id
+            in: path
+            description: venue id
+            required: true
+            type: integer
       responses:
         200:
           description: Success list venues by id
@@ -64,11 +66,11 @@ paths:
         - Venues
       summary: Update venue information
       parameters:
-          name: id
-          in: path
-          description: venue id
-          required: true
-          type: integer
+          - name: id
+            in: path
+            description: venue id
+            required: true
+            type: integer
       requestBody:
         required: false
         content:
@@ -97,6 +99,8 @@ paths:
           description: Success update venue
         401:
           description: Unauthorized
+        403:
+          description: Forbidden
         404:
           description: Venue Not Found
         422:
