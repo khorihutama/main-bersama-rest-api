@@ -15,7 +15,7 @@ export default class AuthController {
             await Database.table('otp_codes').insert({ otp_code, user_id: user.id })
 
             await Mail.send((message) => {
-                message.from("admin@mainbersama.com")
+                message.from("admin.bersama@sanberdev.com")
                     .to(data.email)
                     .subject("Verifikasi OTP")
                     .htmlView('emails/otp_verification', { otp_code })
