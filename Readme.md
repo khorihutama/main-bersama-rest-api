@@ -21,7 +21,3 @@ $ cp .env.example .env
 ```shell
 $ npm run start
 ```
-
-## Data
-- Name : Bukhori Abdul Aziz Hutama
-- Email : khori.qq@gmail.com
